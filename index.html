@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAESAR CIPHER CRYPTOCODER</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>CAESAR CIPHER CRYPTOCODER</h1>
+        <div id="app-container">
+            <textarea name="" id="text"></textarea>
+            <div id="buttons-container"> 
+                <button id="encrypt">Encrypt</button>
+                <input id="key" type="text" placeholder="key">
+                <button id="decrypt">Decrypt</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const btnEncrypt = document.querySelector('#encrypt');
+    const btnDecrypt = document.querySelector('#decrypt');
+    const key = document.querySelector('#key');
+
+    const listLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+    btnEncrypt.addEventListener('click', () => {
+        const textarea = document.querySelector('#text');
+        const keyValue = Number(key.value);
+        let newText = '';
+
+        for (const letter of textarea.value.toLowerCase()) {
+            if (!listLetters.includes(letter)) {
+                newText += letter;
+                continue;
+            }
+
+            const indexLetter = listLetters.findIndex(item => item === letter.toLowerCase());
+            let indexNewLetter = (indexLetter + keyValue) % 26;
+
+            newText += listLetters[indexNewLetter];
+        }
+
+        textarea.value = newText;
+    });
+
+    btnDecrypt.addEventListener('click', () => {
+        const textarea = document.querySelector('#text');
+        const keyValue = Number(key.value);
+        let newText = '';
+
+        for (const letter of textarea.value) {
+            if (!listLetters.includes(letter)) {
+                newText += letter;
+                continue;
+            }
+
+            const indexLetter = listLetters.findIndex(item => item === letter.toLowerCase());
+            let indexNewLetter = (indexLetter - keyValue + 26) % 26;
+
+            newText += listLetters[indexNewLetter];
+        }
+
+        textarea.value = newText;
+    });
+</script>
+
+</body>
+</html>
